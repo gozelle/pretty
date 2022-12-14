@@ -6,9 +6,9 @@ import (
 	"reflect"
 	"strconv"
 	"text/tabwriter"
-
-	"github.com/kr/text"
-	"github.com/rogpeppe/go-internal/fmtsort"
+	
+	"github.com/gozelle/go-internal/fmtsort"
+	"github.com/gozelle/text"
 )
 
 type formatter struct {
@@ -115,7 +115,7 @@ func (p *printer) printValue(v reflect.Value, showType, quote bool) {
 		io.WriteString(p, "!%v(DEPTH EXCEEDED)")
 		return
 	}
-
+	
 	if v.IsValid() && v.CanInterface() {
 		i := v.Interface()
 		if goStringer, ok := i.(fmt.GoStringer); ok {
@@ -124,7 +124,7 @@ func (p *printer) printValue(v reflect.Value, showType, quote bool) {
 			return
 		}
 	}
-
+	
 	switch v.Kind() {
 	case reflect.Bool:
 		p.printInline(v, v.Bool(), showType)
@@ -184,7 +184,7 @@ func (p *printer) printValue(v reflect.Value, showType, quote bool) {
 			}
 			p.visited[vis] = p.depth
 		}
-
+		
 		if showType {
 			io.WriteString(p, t.String())
 		}
